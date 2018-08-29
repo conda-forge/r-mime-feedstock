@@ -10,14 +10,13 @@ package:
 source:
   fn: mime_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/mime_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/mime/mime_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/mime_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/mime/mime_{{ version }}.tar.gz
   sha256: fcc72115afb0eb43237da872754464f37ae9ae097f332ec7984149b5e3a82145
 
 build:
   merge_build_host: True  # [win]
-  number: 1
-  skip: true  # [win32]
+  number: 2
 
   rpaths:
     - lib/R/lib/
@@ -25,18 +24,24 @@ build:
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
   host:
     - r-base
 
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
 
 test:
   commands:
-    - $R -e "library('mime')"  # [not win]
+    - $R -e "library('mime')"           # [not win]
     - "\"%R%\" -e \"library('mime')\""  # [win]
 
 about:
@@ -45,8 +50,14 @@ about:
   summary: Guesses the MIME type from a filename extension using the data derived from /etc/mime.types
     in UNIX-type systems.
   license_family: GPL
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
 
 extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
+    - daler
+    - jdblischak
+    - cbrueffer
+    - dbast
