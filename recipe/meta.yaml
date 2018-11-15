@@ -50,8 +50,7 @@ about:
   summary: Guesses the MIME type from a filename extension using the data derived from /etc/mime.types
     in UNIX-type systems.
   license_family: GPL
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
-  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
 
 extra:
   recipe-maintainers:
