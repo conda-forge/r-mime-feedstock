@@ -1,4 +1,4 @@
-{% set version = '0.6' %}
+{% set version = '0.7' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,19 +10,19 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/mime_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/mime/mime_{{ version }}.tar.gz
-  sha256: 4775b605ab0117406bee7953c8af59eea8b35e67d1bd63f4007686a7097fc401
+  sha256: 11083ee44c92569aadbb9baf60a2e079ab7a721c849b74d102694975cc8d778b
 
 build:
   merge_build_host: True  # [win]
-  number: 1000
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{native}}toolchain        # [win]
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
     - {{posix}}filesystem        # [win]
     - {{posix}}make
     - {{posix}}sed               # [win]
@@ -54,7 +54,7 @@ extra:
 # Package: mime
 # Type: Package
 # Title: Map Filenames to MIME Types
-# Version: 0.6
+# Version: 0.7
 # Authors@R: c( person("Yihui", "Xie", role = c("aut", "cre"), email = "xie@yihui.name", comment = c(ORCID = "0000-0003-0645-5666")), person("Jeffrey", "Horner", role = "ctb"), person("Beilei", "Bian", role = "ctb") )
 # Description: Guesses the MIME type from a filename extension using the data derived from /etc/mime.types in UNIX-type systems.
 # Imports: tools
@@ -65,8 +65,8 @@ extra:
 # RoxygenNote: 6.1.0
 # Encoding: UTF-8
 # NeedsCompilation: yes
-# Packaged: 2018-10-05 16:50:15 UTC; yihui
+# Packaged: 2019-06-11 19:49:18 UTC; yihui
 # Author: Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>), Jeffrey Horner [ctb], Beilei Bian [ctb]
 # Maintainer: Yihui Xie <xie@yihui.name>
 # Repository: CRAN
-# Date/Publication: 2018-10-05 18:10:03 UTC
+# Date/Publication: 2019-06-11 20:10:03 UTC
