@@ -1,4 +1,4 @@
-{% set version = "0.9" %}
+{% set version = "0.10" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/mime_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/mime/mime_{{ version }}.tar.gz
-  sha256: 2ccf97d2940a09539dc051c7a9a1aee90ef04b34e9bc6c0b64b4435fb3c2fa80
+  sha256: 783233a15a817a7530d140e9825565a661aa4bdea7c635d11b9c74faa33be3f7
 
 build:
-  merge_build_host: True  # [win]
-  number: 1
+  merge_build_host: true  # [win]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -43,10 +43,9 @@ test:
 about:
   home: https://github.com/yihui/mime
   license: GPL
-  summary: Guesses the MIME type from a filename extension using the data derived from /etc/mime.types
-    in UNIX-type systems.
+  summary: Guesses the MIME type from a filename extension using the data derived from /etc/mime.types in UNIX-type systems.
   license_family: GPL
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
